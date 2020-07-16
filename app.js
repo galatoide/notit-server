@@ -9,7 +9,7 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const cors         = require('cors');
-
+const passport     = require("passport");
 
 mongoose
   .connect(process.env.DEV_MONGODB_URI, {useNewUrlParser: true})
@@ -24,6 +24,11 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
+
+// Passport
+app.use(passport.initialize());
+
+require("./configs/passport")(passport);
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -60,6 +65,7 @@ app.use(
 
 const index = require('./routes/index');
 app.use('/', index);
-
+app.use("/api/users/", require("./routes/api/users"));
+app.use("/api/posts/", require("./routes/api/posts"));
 
 module.exports = app;

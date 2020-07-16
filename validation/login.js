@@ -1,5 +1,3 @@
-// const { default: validator } = require("validator")
-
 const validator = require('validator');
 const isEmpty = require('is-empty');
 
@@ -7,18 +5,18 @@ validateLoginInput = data =>{
   let errors = {};
 
   let { email, password } = data;
-  email = isEmpty(email) ? email : '';
-  password = isEmpty(password) ? password : '';
+  email = !isEmpty(email) ? email : '';
+  password = !isEmpty(password) ? password : '';
   
-  if(Validator.isEmpty(email)) {
+  if(validator.isEmpty(email)) {
     errors.email = 'Email is required';
-  } else if (!Validator.isEmail(email)) {
+  } else if (!validator.isEmail(email)) {
     errors.email = 'Enter a valid email id';
   }
 
-  if(Validator.isEmpty(password)) {
+  if(validator.isEmpty(password)) {
     errors.password = 'Password is required';
-  } else if (!Validator.isLength(password, {min:6, max:30})) {
+  } else if (!validator.isLength(password, {min:6, max:30})) {
     errors.password = 'Password must be at least 6 characters';
   }
 
