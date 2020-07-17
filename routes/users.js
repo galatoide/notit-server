@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router(); 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const validateSignUpInput = require("../../validation/signup");
-const validateLoginInput = require("../../validation/login");
-const User = require("../../models/User");
+const validateSignUpInput = require("../validation/signup");
+const validateLoginInput = require("../validation/login");
+const User = require("../models/User");
 
 router.post('/signup', (req, res) => {
   const {errors, isValid} = validateSignUpInput(req.body);
@@ -40,41 +40,37 @@ router.post('/signup', (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
-  const {errors, isValid} = validateLoginInput(req.body);
-
+router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
   if (!isValid) {
-    return res.status(400).json(errors);
+     return res.status(400).json(errors);
   }
+  const { email, password } = req.body;
+  User.findOne({ email }).then(user => {
+     if (!user) {
+        return res.status(404).json({ email: "Email not found" });
+     }
 
-  const {email,password} = req.body;
-  User.findOne({email})
-    .then(user => {
-      if (!user) {
-        return res.status(404).json({email: 'Email not found'});
-      }
-    })
-
-  bcrypt.compare(password, user.password)
-    .then(isMatch => {
-      if (isMatch) {
-        const payload = {
-          id: user.id,
-          username: user.username
+     bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+           const payload = {
+              id: user.id,
+              username: user.username
+           };
+           jwt.sign(payload, process.env.SECRET, { expiresIn: 3600 }, (err, token) => {
+              if (err) {
+                 console.log(err);
+              }
+              return res.json({
+                 success: true,
+                 token: "Bearer " + token
+              });
+           });
+        } else {
+           return res.status(400).json({ password: "Password Incorrect" });
         }
-        jwt.sign(payload, process.env.SECRET, {expiresIn: 3600}, (err, token) => {
-          if (err) {
-            console.log(err);
-          }
-          return res.json({
-            sucess: true,
-            token: 'Bearer' + token
-          })
-        })
-      } else {
-        return res.status(400).json({password: 'Password incorrect'})
-      }
-    })
-})
+     });
+  });
+});
 
 module.exports = router;

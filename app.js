@@ -28,7 +28,7 @@ const app = express();
 // Passport
 app.use(passport.initialize());
 
-require("./configs/passport")(passport);
+require("./middleware/passport")(passport);
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -65,7 +65,7 @@ app.use(
 
 const index = require('./routes/index');
 app.use('/', index);
-app.use("/api/users/", require("./routes/api/users"));
-app.use("/api/posts/", require("./routes/api/posts"));
+app.use("/api/users/", require("./routes/users"));
+app.use("/api/posts/", require("./routes/posts"));
 
 module.exports = app;
