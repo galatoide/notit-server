@@ -2,9 +2,8 @@
   "name": "notit",
   "version": "0.0.0",
   "private": true,
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "dev": "DEBUG=notit:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
   },
