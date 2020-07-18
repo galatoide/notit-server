@@ -28,7 +28,7 @@ const app = express();
 // Passport
 app.use(passport.initialize());
 
-require("./configs/passport")(passport);
+require('./configs/passport');
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -60,7 +60,7 @@ app.use(
   cors({
     credentials: true,
     origin: [`http://localhost:${process.env.CLIENTPORT}`,
-    // 'http://notit.s3-website.eu-central-1.amazonaws.com',
+    'http://notit.s3-website.eu-central-1.amazonaws.com',
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
