@@ -67,6 +67,8 @@ app.use(
   })
 )
 
+app.options('*', cors())
+
 const index = require('./routes/index');
 app.use('/', index);
 app.use("/api/users/", require("./routes/users"));
