@@ -28,7 +28,7 @@ const app = express();
 // Passport
 app.use(passport.initialize());
 
-require("./middleware/passport")(passport);
+require("./configs/passport")(passport);
 
 // Middleware Setup
 app.use(logger('dev'));
