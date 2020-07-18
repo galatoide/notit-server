@@ -25,6 +25,11 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 // Passport
 app.use(passport.initialize());
 
@@ -60,10 +65,10 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      '*'
-      // `http://localhost:${process.env.CLIENTPORT}`,
-      // 'http://notit.s3-website.eu-central-1.amazonaws.com/',
-      // 'http://notit-frontend.s3-website.eu-west-2.amazonaws.com'
+      '*',
+      `http://localhost:${process.env.CLIENTPORT}`,
+      'http://notit.s3-website.eu-central-1.amazonaws.com/',
+      'http://notit-frontend.s3-website.eu-west-2.amazonaws.com'
     ],
     // methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
