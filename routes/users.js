@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validateSignUpInput = require("../validation/signup");
 const validateLoginInput = require("../validation/login");
-const User = require("../models/User.js");
+const User = require("../models/user.js");
 
 router.post('/signup', (req, res) => {
   const {errors, isValid} = validateSignUpInput(req.body);
