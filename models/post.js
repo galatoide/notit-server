@@ -17,6 +17,18 @@ const post = {
    date: {
       type: Date,
       default: Date.now
+   },
+   imageName: { 
+      type: String, 
+      required: true 
+   },
+   imageDescription: { 
+      type: String, 
+      required: true 
+   },
+   imageUrl: { 
+      type: String, 
+      required: true 
    }
 };
 
