@@ -20,15 +20,15 @@ const post = {
    },
    imageName: { 
       type: String, 
-      required: true 
+      // required: true 
    },
    imageDescription: { 
       type: String, 
-      required: true 
+      // required: true 
    },
    imageUrl: { 
       type: String, 
-      required: true 
+      // required: true 
    }
 };
 

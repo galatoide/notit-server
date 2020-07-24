@@ -70,7 +70,7 @@ app.use(
       '*',
       `http://localhost:${process.env.CLIENTPORT}`,
       'http://notit.s3-website.eu-central-1.amazonaws.com/',
-      'http://notit-frontend.s3-website.eu-west-2.amazonaws.com'
+      'http://notit.s3-website.eu-central-1.amazonaws.com/blog/post/create'
     ],
     // methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
